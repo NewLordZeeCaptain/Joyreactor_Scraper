@@ -1,13 +1,16 @@
 package services
 
 import (
+	"Projects/config"
+
 	"github.com/gocolly/colly"
 )
 
 // Basic Scraping Function. Returning Status code
-func Scraper(URL string, content map[string]string) int {
+func Scraper(content map[string]string) int {
+
 	c := colly.NewCollector(
-		colly.AllowedDomains(URL),
+		colly.AllowedDomains(config.Conf.URL),
 	)
 
 	// c.OnRequest(func(r *colly.Request) {})
@@ -25,6 +28,6 @@ func Scraper(URL string, content map[string]string) int {
 
 	})
 
-	c.Visit("https://" + URL)
+	c.Visit("https://" + config.Conf.URL)
 	return StatusCode
 }
